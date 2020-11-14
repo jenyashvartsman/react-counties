@@ -15,8 +15,11 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
+import { Link, Route, Switch } from 'react-router-dom';
+import CountriesView from '../views/CountriesView';
+import CapitalCityView from '../views/CapitalCityView';
+import NotFoundView from '../views/NotFoundView';
+import { Icon } from '@material-ui/core';
 
 const drawerWidth = 240;
 
@@ -79,6 +82,11 @@ const useStyles = makeStyles((theme: Theme) =>
 	}),
 );
 
+const links: { title: string, link: string, icon: string }[] = [
+	{title: 'Countries', link: '', icon: 'public'},
+	{title: 'Capital City', link: 'capital-city', icon: 'location_city'}
+]
+
 export default function Portal() {
 	const classes = useStyles();
 	const theme = useTheme();
@@ -132,10 +140,10 @@ export default function Portal() {
 				</div>
 				<Divider/>
 				<List>
-					{['Counties'].map((text, index) => (
-						<ListItem button key={text}>
-							<ListItemIcon>{index % 2 === 0 ? <InboxIcon/> : <MailIcon/>}</ListItemIcon>
-							<ListItemText primary={text}/>
+					{links.map((link) => (
+						<ListItem key={link.title} component={Link} to={link.link}>
+							<ListItemIcon><Icon>{link.icon}</Icon></ListItemIcon>
+							<ListItemText primary={link.title}/>
 						</ListItem>
 					))}
 				</List>
@@ -146,18 +154,11 @@ export default function Portal() {
 				})}
 			>
 				<div className={classes.drawerHeader}/>
-				<Typography paragraph>
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-					ut labore et dolore magna aliqua. Rhoncus dolor purus non enim praesent elementum
-					facilisis leo vel. Risus at ultrices mi tempus imperdiet. Semper risus in hendrerit
-					gravida rutrum quisque non tellus. Convallis convallis tellus id interdum velit laoreet id
-					donec ultrices. Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
-					adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra nibh cras.
-					Metus vulputate eu scelerisque felis imperdiet proin fermentum leo. Mauris commodo quis
-					imperdiet massa tincidunt. Cras tincidunt lobortis feugiat vivamus at augue. At augue eget
-					arcu dictum varius duis at consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem
-					donec massa sapien faucibus et molestie ac.
-				</Typography>
+				<Switch>
+					<Route path={'/'} exact component={CountriesView}/>
+					<Route path={'/capital-city'} component={CapitalCityView}/>
+					<Route path={'*'} component={NotFoundView}/>
+				</Switch>
 			</main>
 		</div>
 	);
