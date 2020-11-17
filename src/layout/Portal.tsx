@@ -16,7 +16,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import { Link, Route, Switch } from 'react-router-dom';
-import CountriesView from '../views/CountriesView';
+import CountriesView from '../views/countries/CountriesView';
 import CapitalCityView from '../views/CapitalCityView';
 import NotFoundView from '../views/NotFoundView';
 import { Icon } from '@material-ui/core';
