@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import CountryList from './CountryList';
+import { Country } from '../../models/country';
 
 const CountriesView = () => {
-	const [countries, setCountries] = useState([]);
+	const [countries, setCountries] = useState<Country[]>([]);
 
 	useEffect(() => {
 		getCountries();
@@ -14,12 +15,11 @@ const CountriesView = () => {
 			.then(res => setCountries(res));
 	}
 
-	const toggleCountryDetails = (toggleCountry: any) => {
-		const newCountries: any[] = [...countries];
-		const countryToToggle = newCountries.find(country => country.name === toggleCountry.name);
-		if (countryToToggle) {
-			countryToToggle.showDetails = !countryToToggle.showDetails;
-			// @ts-ignore
+	const toggleCountryDetails = (toggleCountry: Country) => {
+		const newCountries: Country[] = [...countries];
+		const found: Country | undefined = newCountries.find(country => country.name === toggleCountry.name);
+		if (found) {
+			found.showDetails = !found.showDetails;
 			setCountries(newCountries);
 		}
 	}

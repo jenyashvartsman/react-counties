@@ -8,6 +8,7 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import { Collapse } from '@material-ui/core';
+import { Country } from '../../models/country';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -29,9 +30,9 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const CountryList = (props: any) => {
 	const classes = useStyles();
-	const countries = props.countries;
+	const countries: Country[] = props.countries;
 
-	const handleClick = (country: any) => props.toggleCountryDetails(country);
+	const handleClick = (country: Country) => props.toggleCountryDetails(country);
 
 	return (
 		<List className={classes.root}>
