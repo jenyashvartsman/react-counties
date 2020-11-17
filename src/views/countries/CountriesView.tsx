@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import CountryList from './CountryList';
 import { Country } from '../../models/country';
+import CountrySearch from './CountrySearch';
 
 const CountriesView = () => {
 	const [countries, setCountries] = useState<Country[]>([]);
+	const [filteredCountries, setFilteredCountries] = useState<Country[]>([]);
 
 	useEffect(() => {
 		getCountries();
@@ -12,7 +14,10 @@ const CountriesView = () => {
 	const getCountries = () => {
 		fetch('https://restcountries.eu/rest/v2/all')
 			.then(res => res.json())
-			.then(res => setCountries(res));
+			.then(res => {
+				setCountries(res);
+				setFilteredCountries(res)
+			});
 	}
 
 	const toggleCountryDetails = (toggleCountry: Country) => {
@@ -24,9 +29,21 @@ const CountriesView = () => {
 		}
 	}
 
+	const filterCountries = (query: string) => {
+		if (!!query) {
+			query = query.toLowerCase();
+			const newCountries: Country[] = countries.filter(country =>
+				country.name.toLowerCase().search(query) > -1 || country.region.toLowerCase().search(query) > -1);
+			setFilteredCountries(newCountries);
+		} else {
+			setFilteredCountries([...countries]);
+		}
+	}
+
 	return (
 		<div>
-			<CountryList countries={countries} toggleCountryDetails={toggleCountryDetails}/>
+			<CountrySearch filterCountries={filterCountries}/>
+			<CountryList countries={filteredCountries} toggleCountryDetails={toggleCountryDetails}/>
 		</div>
 	)
 }

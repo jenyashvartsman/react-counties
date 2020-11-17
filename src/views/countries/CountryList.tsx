@@ -32,7 +32,9 @@ const CountryList = (props: any) => {
 	const classes = useStyles();
 	const countries: Country[] = props.countries;
 
-	const handleClick = (country: Country) => props.toggleCountryDetails(country);
+	const handleClick = (country: Country) => {
+		props.toggleCountryDetails(country);
+	}
 
 	return (
 		<List className={classes.root}>
@@ -53,7 +55,7 @@ const CountryList = (props: any) => {
 										color="textPrimary">
 										{country.region + ' - '}
 									</Typography>
-									Capital: {country.capital}, Population: {country.population.toLocaleString()}
+									Capital: {country.capital || 'NA'}, Population: {country.population.toLocaleString()}
 								</React.Fragment>
 							}
 						/>
