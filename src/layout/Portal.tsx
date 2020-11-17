@@ -17,7 +17,6 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import { Link, Route, Switch } from 'react-router-dom';
 import CountriesView from '../views/countries/CountriesView';
-import CapitalCityView from '../views/CapitalCityView';
 import NotFoundView from '../views/NotFoundView';
 import { Icon } from '@material-ui/core';
 
@@ -83,8 +82,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const links: { title: string, link: string, icon: string }[] = [
-	{title: 'Countries', link: '', icon: 'public'},
-	{title: 'Capital City', link: 'capital-city', icon: 'location_city'}
+	{title: 'Countries', link: '', icon: 'public'}
 ]
 
 export default function Portal() {
@@ -156,7 +154,6 @@ export default function Portal() {
 				<div className={classes.drawerHeader}/>
 				<Switch>
 					<Route path={'/'} exact component={CountriesView}/>
-					<Route path={'/capital-city'} component={CapitalCityView}/>
 					<Route path={'*'} component={NotFoundView}/>
 				</Switch>
 			</main>
